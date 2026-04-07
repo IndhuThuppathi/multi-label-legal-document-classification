@@ -1,14 +1,8 @@
-# Ignore virtual environment
+results/
+data/
 venv/
 __pycache__/
-*.pyc
-
-# Ignore data files
-data/
-*.csv
-*.tsv
+*.pt
+*.safetensors
+*.bin
 *.zip
-
-# Ignore system files
-.DS_Store
-Thumbs.db
