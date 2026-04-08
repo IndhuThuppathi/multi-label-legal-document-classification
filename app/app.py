@@ -96,37 +96,37 @@ st.markdown("</div>", unsafe_allow_html=True)
 # PREDICTION
 
 #if analyze and text.strip():
-    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    with torch.no_grad():
-        outputs = model(**inputs)
+   # inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
+   # with torch.no_grad():
+    #    outputs = model(**inputs)
 
-    probs = torch.sigmoid(outputs.logits)[0]
-    results = [(label_names[i], float(p)) for i, p in enumerate(probs) if p > THRESHOLD]
-    results.sort(key=lambda x: x[1], reverse=True)
+    #probs = torch.sigmoid(outputs.logits)[0]
+    #results = [(label_names[i], float(p)) for i, p in enumerate(probs) if p > THRESHOLD]
+    #results.sort(key=lambda x: x[1], reverse=True)
 
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.subheader(" Classification Results")
+    #st.markdown("<div class='card'>", unsafe_allow_html=True)
+    #st.subheader(" Classification Results")
 
-    if not results:
-        st.warning("No confident labels detected")
-    else:
-        primary = results[0]
-        avg = sum(p for _, p in results) / len(results)
+    #if not results:
+     #   st.warning("No confident labels detected")
+    #else:
+       # primary = results[0]
+        #avg = sum(p for _, p in results) / len(results)
 
-        col1, col2 = st.columns(2)
-        col1.markdown(f"**Primary Category:** {primary[0]} ({primary[1]*100:.1f}%)")
-        col2.markdown(f"**Avg Confidence:** {avg*100:.1f}%")
+        #col1, col2 = st.columns(2)
+        #col1.markdown(f"**Primary Category:** {primary[0]} ({primary[1]*100:.1f}%)")
+        #col2.markdown(f"**Avg Confidence:** {avg*100:.1f}%")
 
-        st.markdown("### Predicted Categories")
-        for label, score in results:
-            st.markdown(f"{label} — {score*100:.1f}%")
-            st.markdown(f"<div class='bar' style='width:{score*100}%'></div>", unsafe_allow_html=True)
+        #st.markdown("### Predicted Categories")
+        #for label, score in results:
+         #   st.markdown(f"{label} — {score*100:.1f}%")
+          #  st.markdown(f"<div class='bar' style='width:{score*100}%'></div>", unsafe_allow_html=True)
 
-        st.markdown("### Tags")
-        for label, _ in results:
-            st.markdown(f"<span class='tag'>{label}</span>", unsafe_allow_html=True)
+        #st.markdown("### Tags")
+       # for label, _ in results:
+         #   st.markdown(f"<span class='tag'>{label}</span>", unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+   # st.markdown("</div>", unsafe_allow_html=True)
 
 
 if analyze and text.strip():
