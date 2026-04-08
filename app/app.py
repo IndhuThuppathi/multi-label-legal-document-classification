@@ -6,7 +6,8 @@ from datasets import load_dataset
 
 # CONFIG
 
-MODEL_PATH = "results/checkpoint-9375"
+#MODEL_PATH = "results/checkpoint-9375"
+MODEL_PATH = "bert-base-uncased"
 THRESHOLD = 0.05
 
 
@@ -17,16 +18,30 @@ st.set_page_config(page_title="Legal Document Classifier", layout="wide")
 
 # LOAD MODEL
 
+#@st.cache_resource
+#def load_model():
+ #   tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+  #  model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
+   # model.eval()
+    #dataset = load_dataset("lex_glue", "ledgar")
+    #labels = dataset["train"].features["label"].names
+    #return tokenizer, model, labels
+
+#tokenizer, model, label_names = load_model()
+
+
 @st.cache_resource
 def load_model():
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
-    model.eval()
-    dataset = load_dataset("lex_glue", "ledgar")
-    labels = dataset["train"].features["label"].names
-    return tokenizer, model, labels
-
-tokenizer, model, label_names = load_model()
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+        model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
+        
+        label_names = ["Label1", "Label2", "Label3"]  # temporary labels
+        
+        return tokenizer, model, label_names
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None, None, None
 
 
 # STYLES
