@@ -7,7 +7,7 @@ from datasets import load_dataset
 # CONFIG
 
 #MODEL_PATH = "results/checkpoint-9375"
-MODEL_PATH = "bert-base-uncased"
+MODEL_PATH = "final_model"
 THRESHOLD = 0.05
 
 
@@ -27,26 +27,39 @@ st.set_page_config(page_title="Legal Document Classifier", layout="wide")
     #labels = dataset["train"].features["label"].names
     #return tokenizer, model, labels
 
+# LOAD MODEL FUNCTION
+
 @st.cache_resource
 def load_model():
     try:
         tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
         model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
-        
-        label_names = ["Label1", "Label2", "Label3"]
-        
+        model.eval()
+
+        from datasets import load_dataset
+        dataset = load_dataset("lex_glue", "ledgar")
+        label_names = dataset["train"].features["label"].names
+
         return tokenizer, model, label_names
+
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None, None, None
 
 
-# ✅ CALL AFTER FUNCTION
+# ✅ MUST COME IMMEDIATELY AFTER FUNCTION
 tokenizer, model, label_names = load_model()
 
+
+# ✅ THEN CHECK
 if tokenizer is None or model is None:
     st.error("Model failed to load. Please check MODEL_PATH.")
     st.stop()
+
+
+
+
+
 
 
 # STYLES
