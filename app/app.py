@@ -7,7 +7,7 @@ from datasets import load_dataset
 # CONFIG
 
 #MODEL_PATH = "results/checkpoint-9375"
-MODEL_PATH = "final_model"
+MODEL_PATH = "thuppathiindhu/legal-classifier"
 THRESHOLD = 0.05
 
 
