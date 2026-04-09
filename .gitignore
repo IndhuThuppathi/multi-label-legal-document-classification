@@ -6,3 +6,5 @@ __pycache__/
 *.safetensors
 *.bin
 *.zip
+hf_login.py
+legal-classifier/
